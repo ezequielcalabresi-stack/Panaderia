@@ -173,7 +173,7 @@ async function registrarPagoClienteFirebase(nombreCliente, monto) {
 
 async function enviarRespuestaWhatsApp(telefono, texto) {
   try {
-    const TOKEN_ACCESSO_META = "EAAj2xAzxAskBSQEuVYzrj9P0kBlolvw9jtHde1zih3I6dnSavUgUZBQSyLFIiKdUBBXt5UAr6dT3hTylMnDWHEQnZCXcbpgzLeUMW6WkEgSGdy2Ho5INwd3Nx0d4Y4bfhoPKgiwdi1bC81EhrZAJZAhEwAWNZCp3uvwKjKFH03Bp5nk33QjqIpfApBTbUXZAEvgJtvDncl9GZAJr0C4iYGu7ehSfQjtigeVGjRjYkiuZBPrio0pZCYxu1ZAQJiYggSZA9MYE5t1wOwooWYqA7MW5hkZB";
+   const TOKEN_ACCESSO_META = process.env.WHATSAPP_TOKEN;
     const PHONE_NUMBER_ID = "1251187448084396"; 
 
     await axios.post(
