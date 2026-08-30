@@ -2,9 +2,9 @@
 app.get('/webhook', (req, res) => {
   const VERIFY_TOKEN = "panaderia123"; // Debe coincidir exactamente con el token que pusiste en Meta
 
-  const mode = req.query['hub.mode'];
-  const token = req.query['hub.challenge'];
-  const challenge = req.query['hub.challenge'];
+ const mode = req.query['hub.mode'];
+const token = req.query['hub.verify_token']; // <--- Acá estaba el error, debe leer 'hub.verify_token'
+const challenge = req.query['hub.challenge'];
 
   if (mode && token === VERIFY_TOKEN) {
     res.status(200).send(challenge);
