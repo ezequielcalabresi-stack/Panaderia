@@ -31,11 +31,11 @@ const client = new Client({
     }
 });
 
-const qrcodeTerminal = require('qrcode-terminal');
+const qrcode = require('qrcode-terminal');
 
 client.on('qr', (qr) => {
-    console.log('Escanea este codigo con WhatsApp:');
-    qrcodeTerminal.generate(qr, {small: true});
+    console.log('Escanea este código QR:');
+    qrcode.generate(qr, { small: false }); // Probamos en tamaño normal grande
 });
 client.on('ready', () => {
     console.log('¡El bot está listo y conectado a WhatsApp!');
