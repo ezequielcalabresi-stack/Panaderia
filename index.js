@@ -7,10 +7,10 @@ const PORT = process.env.PORT || 8080;
 
 let latestQR = '';
 
-// Ruta web para ver el QR en grande desde cualquier navegador
+// Ruta web para mostrar el código QR en grande
 app.get('/', async (req, res) => {
     if (!latestQR) {
-        return res.send('<h1>El bot aún está generando el código QR o ya está conectado. Recarga la página en unos segundos...</h1>');
+        return res.send('<h1>El bot está iniciando o ya está conectado. Recarga la página en unos segundos...</h1>');
     }
     try {
         const urlImage = await qrcode.toDataURL(latestQR);
@@ -30,7 +30,6 @@ app.listen(PORT, () => {
     console.log(`Servidor web corriendo en el puerto ${PORT}`);
 });
 
-// CONFIGURACIÓN DE PUPPETEER PARA LA NUBE
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
@@ -50,19 +49,16 @@ const client = new Client({
 
 client.on('qr', (qr) => {
     latestQR = qr;
-    console.log('Nuevo QR generado. Entra a la URL pública de tu app en Railway para escanearlo.');
+    console.log('Nuevo QR generado.');
 });
 
 client.on('ready', () => {
     console.log('¡El bot está listo y conectado a WhatsApp!');
-    latestQR = ''; // Limpiamos el QR una vez conectado
+    latestQR = ''; 
 });
 
-// Eventos de mensajes
 client.on('message', async msg => {
     const textoMensaje = msg.body.toLowerCase();
-    console.log(`Mensaje recibido: ${textoMensaje}`);
-    
     if (textoMensaje.includes('bot')) {
         await msg.reply('¡Hola! Soy el bot de la panadería.');
     }
