@@ -1,5 +1,14 @@
-"dependencies": {
-  "express": "^4.18.2",
-  "whatsapp-web.js": "^1.23.0",
-  "qrcode-terminal": "^0.12.0"
+{
+  "name": "panaderia-bot",
+  "version": "1.0.0",
+  "description": "Bot de la panaderia por QR",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "whatsapp-web.js": "^1.23.0",
+    "qrcode-terminal": "^0.12.0"
+  }
 }
