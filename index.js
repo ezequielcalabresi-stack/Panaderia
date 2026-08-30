@@ -33,10 +33,10 @@ const client = new Client({
 
 const qrcode = require('qrcode');
 client.on('qr', (qr) => {
-    console.log('Escanea este código QR desde el navegador:');
-    console.log(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}`);
+    console.log('--- COPIA ESTE ENLACE EN TU NAVEGADOR ---');
+    console.log(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qr)}`);
+    console.log('----------------------------------------');
 });
-
 client.on('ready', () => {
     console.log('¡El bot está listo y conectado a WhatsApp!');
 });
