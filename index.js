@@ -17,6 +17,8 @@ app.listen(PORT, () => {
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
+        headless: true,
+        executablePath: process.env.CHROME_PATH || undefined,
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -38,7 +40,7 @@ client.on('ready', () => {
     console.log('¡El bot está listo y conectado a WhatsApp!');
 });
 
-// El resto de tus eventos de mensajes (saldo, bot, etc.) van acá abajo...
+// Eventos de mensajes
 client.on('message', async msg => {
     const textoMensaje = msg.body.toLowerCase();
     console.log(`Mensaje recibido: ${textoMensaje}`);
