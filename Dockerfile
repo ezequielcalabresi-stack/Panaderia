@@ -1,4 +1,3 @@
-# Forzar compilacion limpia con audio y graficos
 FROM node:20-slim
 
 # Instalar dependencias esenciales de sistema para que Puppeteer / Chrome corra en Linux
@@ -21,8 +20,8 @@ RUN apt-get update && apt-get install -y \
     libpango-1.0-0 \
     libcairo2 \
     libasound2 \
-    
     && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 COPY package*.json ./
