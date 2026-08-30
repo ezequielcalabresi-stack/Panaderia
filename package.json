@@ -1,14 +1,14 @@
 {
-  "name": "panaderia-bot",
+  "name": "bot-panaderia",
   "version": "1.0.0",
-  "description": "Bot de la panaderia por QR",
+  "description": "Bot de WhatsApp para panaderia",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "whatsapp-web.js": "^1.23.0",
-    "qrcode-terminal": "^0.12.0"
+    "express": "^4.19.2",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.23.0"
   }
 }
