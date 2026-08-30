@@ -1,3 +1,17 @@
+// Verificación del Webhook de Meta (GET)
+app.get('/webhook', (req, res) => {
+  const VERIFY_TOKEN = "panaderia123"; // Debe coincidir exactamente con el token que pusiste en Meta
+
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.challenge'];
+  const challenge = req.query['hub.challenge'];
+
+  if (mode && token === VERIFY_TOKEN) {
+    res.status(200).send(challenge);
+  } else {
+    res.sendStatus(403);
+  }
+});
 const express = require('express');
 const bodyParser = require('body-parser');
 const admin = require('firebase-admin');
