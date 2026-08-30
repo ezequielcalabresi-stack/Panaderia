@@ -32,7 +32,6 @@ const client = new Client({
 });
 
 const qrcode = require('qrcode');
-
 client.on('qr', (qr) => {
     console.log('Escanea este código QR desde el navegador:');
     console.log(`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qr)}`);
