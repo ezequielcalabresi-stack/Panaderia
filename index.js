@@ -1,19 +1,36 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
+const qrcode = require('qrcode');
 const express = require('express');
 
 const app = express();
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 8080;
 
-app.get('/', (req, res) => {
-    res.send('Bot de la panadería activo en la nube 🚀');
+let latestQR = '';
+
+// Ruta web para ver el QR en grande desde cualquier navegador
+app.get('/', async (req, res) => {
+    if (!latestQR) {
+        return res.send('<h1>El bot aún está generando el código QR o ya está conectado. Recarga la página en unos segundos...</h1>');
+    }
+    try {
+        const urlImage = await qrcode.toDataURL(latestQR);
+        res.send(`
+            <div style="text-align: center; margin-top: 50px; font-family: Arial, sans-serif;">
+                <h1>Escanea este QR con WhatsApp</h1>
+                <p>Abre WhatsApp en tu celular > Dispositivos vinculados > Vincular un dispositivo</p>
+                <img src="${urlImage}" alt="QR WhatsApp" style="width: 350px; height: 350px; border: 2px solid #ccc; border-radius: 10px; padding: 10px;" />
+            </div>
+        `);
+    } catch (err) {
+        res.status(500).send('Error generando la imagen del QR');
+    }
 });
 
 app.listen(PORT, () => {
     console.log(`Servidor web corriendo en el puerto ${PORT}`);
 });
 
-// CONFIGURACIÓN CLAVE PARA LA NUBE (Render)
+// CONFIGURACIÓN DE PUPPETEER PARA LA NUBE
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
@@ -27,18 +44,18 @@ const client = new Client({
             '--no-first-run',
             '--no-zygote',
             '--disable-gpu'
-        ],
+        ]
     }
 });
 
-const qrcode = require('qrcode-terminal');
-
 client.on('qr', (qr) => {
-    console.log('Escanea este código QR:');
-    qrcode.generate(qr, { small: false }); // Probamos en tamaño normal grande
+    latestQR = qr;
+    console.log('Nuevo QR generado. Entra a la URL pública de tu app en Railway para escanearlo.');
 });
+
 client.on('ready', () => {
     console.log('¡El bot está listo y conectado a WhatsApp!');
+    latestQR = ''; // Limpiamos el QR una vez conectado
 });
 
 // Eventos de mensajes
