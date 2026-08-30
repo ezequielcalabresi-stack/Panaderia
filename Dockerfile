@@ -1,3 +1,4 @@
+# Forzar compilacion limpia con audio y graficos
 FROM node:20-slim
 
 # Instalar dependencias esenciales de sistema para que Puppeteer / Chrome corra en Linux
