@@ -31,11 +31,11 @@ const client = new Client({
     }
 });
 
-const qrcode = require('qrcode');
+const qrcodeTerminal = require('qrcode-terminal');
+
 client.on('qr', (qr) => {
-    console.log('--- COPIA ESTE ENLACE EN TU NAVEGADOR ---');
-    console.log(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qr)}`);
-    console.log('----------------------------------------');
+    console.log('Escanea este codigo con WhatsApp:');
+    qrcodeTerminal.generate(qr, {small: true});
 });
 client.on('ready', () => {
     console.log('¡El bot está listo y conectado a WhatsApp!');
