@@ -1,10 +1,19 @@
-// Verificación del Webhook de Meta (GET)
-app.get('/webhook', (req, res) => {
-  const VERIFY_TOKEN = "panaderia123"; // Debe coincidir exactamente con el token que pusiste en Meta
+// Inicialización principal
+const express = require('express');
+const bodyParser = require('body-parser');
+const admin = require('firebase-admin');
+const { validarPermisoUsuario } = require('./authMiddleware');
 
- const mode = req.query['hub.mode'];
-const token = req.query['hub.verify_token']; // <--- Acá estaba el error, debe leer 'hub.verify_token'
-const challenge = req.query['hub.challenge'];
+const app = express();
+app.use(bodyParser.json());
+
+// 1. Verificación del Webhook de Meta (GET) - AHORA SÍ ESTÁ 'app' DECLARADO
+app.get('/webhook', (req, res) => {
+  const VERIFY_TOKEN = "panaderia123"; 
+
+  const mode = req.query['hub.mode'];
+  const token = req.query['hub.verify_token'];
+  const challenge = req.query['hub.challenge'];
 
   if (mode && token === VERIFY_TOKEN) {
     res.status(200).send(challenge);
